@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İngilizce En Çok Kullanılan Fiiller - Çalışma Kartları</title>
+    <style>
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #1a1a2e; color: #fff; display: flex; flex-direction: column; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
+        h1 { color: #00adb5; margin-bottom: 10px; text-align: center; }
+        p.subtitle { color: #a6a6a6; margin-bottom: 30px; text-align: center; }
+        
+        .card-container { perspective: 1000px; width: 340px; height: 220px; cursor: pointer; margin-bottom: 25px; }
+        .card { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.6s; box-shadow: 0 10px 20px rgba(0,0,0,0.4); border-radius: 15px; }
+        .card.flipped { transform: rotateY(180deg); }
+        
+        .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; border-radius: 15px; padding: 20px; text-align: center; }
+        .card-front { background-color: #0f3460; border: 2px solid #00adb5; }
+        .card-back { background-color: #e94560; transform: rotateY(180deg); border: 2px solid #ff2e63; }
+        
+        .rank { position: absolute; top: 15px; left: 15px; font-size: 14px; background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 5px; }
+        .v1-title { font-size: 32px; font-weight: bold; color: #fff; margin-bottom: 5px; }
+        .meaning { font-size: 18px; color: #eeeeee; }
+        .hint { position: absolute; bottom: 15px; font-size: 12px; color: #a6a6a6; }
+        
+        .forms { display: flex; flex-direction: column; gap: 8px; font-size: 18px; width: 100%; }
+        .form-row { display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 4px; }
+        .form-label { font-weight: bold; color: #ff2e63; }
+        
+        .controls { display: flex; gap: 15px; margin-bottom: 20px; }
+        button { background-color: #00adb5; border: none; color: white; padding: 12px 24px; font-size: 16px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        button:hover { background-color: #00888e; }
+        
+        .progress { font-size: 16px; color: #a6a6a6; }
+    </style>
+</head>
+<body>
+
+    <h1>İngilizce Fiil Ezberleme Kartları</h1>
+    <p class="subtitle">Kartın üzerine tıklayarak 2. ve 3. hallerini kontrol et!</p>
+
+    <div class="card-container" onclick="flipCard()">
+        <div class="card" id="card">
+            <!-- Ön Yüz -->
+            <div class="card-face card-front">
+                <div class="rank" id="verb-rank">#1</div>
+                <div class="v1-title" id="verb-v1">BE</div>
+                <div class="meaning" id="verb-meaning">Olmak</div>
+                <div class="hint">Anlamı & 2/3. Halleri için Tıkla 🔄</div>
+            </div>
+            <!-- Arka Yüz -->
+            <div class="card-face card-back">
+                <div class="forms">
+                    <div class="form-row"><span>V1 (Yalın):</span> <strong id="back-v1">be</strong></div>
+                    <div class="form-row"><span>V2 (Past):</span> <strong id="back-v2">was / were</strong></div>
+                    <div class="form-row"><span>V3 (Perfect):</span> <strong id="back-v3">been</strong></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button onclick="prevVerb()">⬅ Önceki</button>
+        <button onclick="nextVerb()">Sonraki ➡</button>
+    </div>
+
+    <div class="progress" id="progress">1 / 30</div>
+
+    <script>
+        const verbs = [
+            { rank: 1, v1: "Be (am/is/are)", v2: "was / were", v3: "been", tr: "Olmak" },
+            { rank: 2, v1: "Have", v2: "had", v3: "had", tr: "Sahip olmak" },
+            { rank: 3, v1: "Do", v2: "did", v3: "done", tr: "Yapmak" },
+            { rank: 4, v1: "Say", v2: "said", v3: "said", tr: "Söylemek, Demek" },
+            { rank: 5, v1: "Go", v2: "went", v3: "gone", tr: "Gitmek" },
+            { rank: 6, v1: "Get", v2: "got", v3: "got / gotten", tr: "Almak, Olmak" },
+            { rank: 7, v1: "Make", v2: "made", v3: "made", tr: "Yapmak, Üretmek" },
+            { rank: 8, v1: "Know", v2: "knew", v3: "known", tr: "Bilmek, Tanımak" },
+            { rank: 9, v1: "Think", v2: "thought", v3: "thought", tr: "Düşünmek" },
+            { rank: 10, v1: "Take", v2: "took", v3: "taken", tr: "Almak, Götürmek" },
+            { rank: 11, v1: "See", v2: "saw", v3: "seen", tr: "Görmek" },
+            { rank: 12, v1: "Come", v2: "came", v3: "come", tr: "Gelmek" },
+            { rank: 13, v1: "Find", v2: "found", v3: "found", tr: "Bulmak" },
+            { rank: 14, v1: "Give", v2: "gave", v3: "given", tr: "Vermek" },
+            { rank: 15, v1: "Tell", v2: "told", v3: "told", tr: "Anlatmak, Söylemek" },
+            { rank: 16, v1: "Work", v2: "worked", v3: "worked", tr: "Çalışmak" },
+            { rank: 17, v1: "Call", v2: "called", v3: "called", tr: "Aramak, Çağırmak" },
+            { rank: 18, v1: "Try", v2: "tried", v3: "tried", tr: "Denemek" },
+            { rank: 19, v1: "Ask", v2: "asked", v3: "asked", tr: "Sormak, İstemek" },
+            { rank: 20, v1: "Need", v2: "needed", v3: "needed", tr: "İhtiyaç duymak" },
+            { rank: 21, v1: "Feel", v2: "felt", v3: "felt", tr: "Hissetmek" },
+            { rank: 22, v1: "Become", v2: "became", v3: "become", tr: "Dönüşmek, Olmak" },
+            { rank: 23, v1: "Leave", v2: "left", v3: "left", tr: "Ayrılmak, Bırakmak" },
+            { rank: 24, v1: "Put", v2: "put", v3: "put", tr: "Koymak" },
+            { rank: 25, v1: "Mean", v2: "meant", v3: "meant", tr: "Kastetmek, Anlamına gelmek" },
+            { rank: 26, v1: "Keep", v2: "kept", v3: "kept", tr: "Tutmak, Saklamak" },
+            { rank: 27, v1: "Let", v2: "let", v3: "let", tr: "İzin vermek" },
+            { rank: 28, v1: "Begin", v2: "began", v3: "begun", tr: "Başlamak" },
+            { rank: 29, v1: "Show", v2: "showed", v3: "shown", tr: "Göstermek" },
+            { rank: 30, v1: "Hear", v2: "heard", v3: "heard", tr: "Duymak" }
+        ];
+
+        let currentIndex = 0;
+        let isFlipped = false;
+
+        function updateCard() {
+            const verb = verbs[currentIndex];
+            document.getElementById('verb-rank').innerText = '#' + verb.rank;
+            document.getElementById('verb-v1').innerText = verb.v1;
+            document.getElementById('verb-meaning').innerText = verb.tr;
+            
+            document.getElementById('back-v1').innerText = verb.v1;
+            document.getElementById('back-v2').innerText = verb.v2;
+            document.getElementById('back-v3').innerText = verb.v3;
+            
+            document.getElementById('progress').innerText = `${currentIndex + 1} / ${verbs.length}`;
+            
+            if (isFlipped) {
+                document.getElementById('card').classList.remove('flipped');
+                isFlipped = false;
+            }
+        }
+
+        function flipCard() {
+            document.getElementById('card').classList.toggle('flipped');
+            isFlipped = !isFlipped;
+        }
+
+        function nextVerb() {
+            if (currentIndex < verbs.length - 1) {
+                currentIndex++;
+                updateCard();
+            }
+        }
+
+        function prevVerb() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCard();
+            }
+        }
+    </script>
+</body>
+</html>
