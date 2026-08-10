@@ -3,57 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>İngilizce En Çok Kullanılan Fiiller - Çalışma Kartları</title>
+    <title>En Çok Kullanılan 50 İngilizce Fiil - Çalışma Kartları</title>
     <style>
         * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #1a1a2e; color: #fff; display: flex; flex-direction: column; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
-        h1 { color: #00adb5; margin-bottom: 10px; text-align: center; }
-        p.subtitle { color: #a6a6a6; margin-bottom: 30px; text-align: center; }
+        h1 { color: #00adb5; margin-bottom: 5px; text-align: center; font-size: 24px; }
+        p.subtitle { color: #a6a6a6; margin-bottom: 25px; text-align: center; font-size: 14px; }
         
-        .card-container { perspective: 1000px; width: 340px; height: 220px; cursor: pointer; margin-bottom: 25px; }
-        .card { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.6s; box-shadow: 0 10px 20px rgba(0,0,0,0.4); border-radius: 15px; }
+        .card-container { perspective: 1000px; width: 320px; height: 240px; cursor: pointer; margin-bottom: 20px; }
+        .card { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.5s; box-shadow: 0 10px 25px rgba(0,0,0,0.5); border-radius: 15px; }
         .card.flipped { transform: rotateY(180deg); }
         
         .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; border-radius: 15px; padding: 20px; text-align: center; }
         .card-front { background-color: #0f3460; border: 2px solid #00adb5; }
-        .card-back { background-color: #e94560; transform: rotateY(180deg); border: 2px solid #ff2e63; }
+        .card-back { background-color: #16213e; transform: rotateY(180deg); border: 2px solid #e94560; }
         
-        .rank { position: absolute; top: 15px; left: 15px; font-size: 14px; background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 5px; }
-        .v1-title { font-size: 32px; font-weight: bold; color: #fff; margin-bottom: 5px; }
-        .meaning { font-size: 18px; color: #eeeeee; }
-        .hint { position: absolute; bottom: 15px; font-size: 12px; color: #a6a6a6; }
+        .rank { position: absolute; top: 15px; left: 15px; font-size: 13px; background: rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 12px; color: #00adb5; font-weight: bold; }
+        .v1-main { font-size: 36px; font-weight: bold; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
+        .hint { position: absolute; bottom: 15px; font-size: 12px; color: #8a8a8a; }
         
-        .forms { display: flex; flex-direction: column; gap: 8px; font-size: 18px; width: 100%; }
-        .form-row { display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 4px; }
-        .form-label { font-weight: bold; color: #ff2e63; }
+        .meaning-box { background-color: #e94560; color: #fff; width: 100%; padding: 8px; border-radius: 8px; font-size: 18px; font-weight: bold; margin-bottom: 15px; }
+        .forms { display: flex; flex-direction: column; gap: 8px; font-size: 16px; width: 100%; }
+        .form-row { display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 4px; }
+        .form-label { font-weight: bold; color: #00adb5; }
         
-        .controls { display: flex; gap: 15px; margin-bottom: 20px; }
-        button { background-color: #00adb5; border: none; color: white; padding: 12px 24px; font-size: 16px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
-        button:hover { background-color: #00888e; }
+        .controls { display: flex; gap: 15px; margin-bottom: 15px; }
+        button { background-color: #00adb5; border: none; color: white; padding: 12px 24px; font-size: 16px; border-radius: 8px; cursor: pointer; transition: 0.2s; font-weight: bold; }
+        button:active { transform: scale(0.95); }
         
-        .progress { font-size: 16px; color: #a6a6a6; }
+        .progress { font-size: 15px; color: #a6a6a6; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <h1>İngilizce Fiil Ezberleme Kartları</h1>
-    <p class="subtitle">Kartın üzerine tıklayarak 2. ve 3. hallerini kontrol et!</p>
+    <h1>50 Fiil Ezber Kartları</h1>
+    <p class="subtitle">Tahmin et, ardından karta dokunup cevabı gör!</p>
 
     <div class="card-container" onclick="flipCard()">
         <div class="card" id="card">
-            <!-- Ön Yüz -->
+            <!-- Ön Yüz (Sadece V1 - Türkçe Yok) -->
             <div class="card-face card-front">
                 <div class="rank" id="verb-rank">#1</div>
-                <div class="v1-title" id="verb-v1">BE</div>
-                <div class="meaning" id="verb-meaning">Olmak</div>
-                <div class="hint">Anlamı & 2/3. Halleri için Tıkla 🔄</div>
+                <div class="v1-main" id="verb-v1">BE</div>
+                <div class="hint">Anlamı & Halleri İçin Dokun 🔄</div>
             </div>
-            <!-- Arka Yüz -->
+            <!-- Arka Yüz (Türkçe Anlam + V1, V2, V3) -->
             <div class="card-face card-back">
+                <div class="meaning-box" id="back-meaning">Olmak</div>
                 <div class="forms">
-                    <div class="form-row"><span>V1 (Yalın):</span> <strong id="back-v1">be</strong></div>
-                    <div class="form-row"><span>V2 (Past):</span> <strong id="back-v2">was / were</strong></div>
-                    <div class="form-row"><span>V3 (Perfect):</span> <strong id="back-v3">been</strong></div>
+                    <div class="form-row"><span class="form-label">V1 (Yalın):</span> <strong id="back-v1">be</strong></div>
+                    <div class="form-row"><span class="form-label">V2 (Past):</span> <strong id="back-v2">was / were</strong></div>
+                    <div class="form-row"><span class="form-label">V3 (Perfect):</span> <strong id="back-v3">been</strong></div>
                 </div>
             </div>
         </div>
@@ -64,16 +64,16 @@
         <button onclick="nextVerb()">Sonraki ➡</button>
     </div>
 
-    <div class="progress" id="progress">1 / 30</div>
+    <div class="progress" id="progress">1 / 50</div>
 
     <script>
         const verbs = [
-            { rank: 1, v1: "Be (am/is/are)", v2: "was / were", v3: "been", tr: "Olmak" },
+            { rank: 1, v1: "Be", v2: "was / were", v3: "been", tr: "Olmak" },
             { rank: 2, v1: "Have", v2: "had", v3: "had", tr: "Sahip olmak" },
             { rank: 3, v1: "Do", v2: "did", v3: "done", tr: "Yapmak" },
             { rank: 4, v1: "Say", v2: "said", v3: "said", tr: "Söylemek, Demek" },
             { rank: 5, v1: "Go", v2: "went", v3: "gone", tr: "Gitmek" },
-            { rank: 6, v1: "Get", v2: "got", v3: "got / gotten", tr: "Almak, Olmak" },
+            { rank: 6, v1: "Get", v2: "got", v3: "got / gotten", tr: "Almak, Elde etmek" },
             { rank: 7, v1: "Make", v2: "made", v3: "made", tr: "Yapmak, Üretmek" },
             { rank: 8, v1: "Know", v2: "knew", v3: "known", tr: "Bilmek, Tanımak" },
             { rank: 9, v1: "Think", v2: "thought", v3: "thought", tr: "Düşünmek" },
@@ -92,12 +92,33 @@
             { rank: 22, v1: "Become", v2: "became", v3: "become", tr: "Dönüşmek, Olmak" },
             { rank: 23, v1: "Leave", v2: "left", v3: "left", tr: "Ayrılmak, Bırakmak" },
             { rank: 24, v1: "Put", v2: "put", v3: "put", tr: "Koymak" },
-            { rank: 25, v1: "Mean", v2: "meant", v3: "meant", tr: "Kastetmek, Anlamına gelmek" },
+            { rank: 25, v1: "Mean", v2: "meant", v3: "meant", tr: "Kastetmek, Anlama gelmek" },
             { rank: 26, v1: "Keep", v2: "kept", v3: "kept", tr: "Tutmak, Saklamak" },
             { rank: 27, v1: "Let", v2: "let", v3: "let", tr: "İzin vermek" },
             { rank: 28, v1: "Begin", v2: "began", v3: "begun", tr: "Başlamak" },
             { rank: 29, v1: "Show", v2: "showed", v3: "shown", tr: "Göstermek" },
-            { rank: 30, v1: "Hear", v2: "heard", v3: "heard", tr: "Duymak" }
+            { rank: 30, v1: "Hear", v2: "heard", v3: "heard", tr: "Duymak" },
+            /* Yeni Eklenen 20 Kelime (31-50) */
+            { rank: 31, v1: "Run", v2: "ran", v3: "run", tr: "Koşmak, Çalıştırmak" },
+            { rank: 32, v1: "Bring", v2: "brought", v3: "brought", tr: "Getirmek" },
+            { rank: 33, v1: "Write", v2: "wrote", v3: "written", tr: "Yazmak" },
+            { rank: 34, v1: "Sit", v2: "sat", v3: "sat", tr: "Oturmak" },
+            { rank: 35, v1: "Stand", v2: "stood", v3: "stood", tr: "Ayakta durmak" },
+            { rank: 36, v1: "Losing / Lose", v2: "lost", v3: "lost", tr: "Kaybetmek" },
+            { rank: 37, v1: "Pay", v2: "paid", v3: "paid", tr: "Ödemek" },
+            { rank: 38, v1: "Meet", v2: "met", v3: "met", tr: "Buluşmak, Tanışmak" },
+            { rank: 39, v1: "Include", v2: "included", v3: "included", tr: "Dahil etmek" },
+            { rank: 40, v1: "Continue", v2: "continued", v3: "continued", tr: "Devam etmek" },
+            { rank: 41, v1: "Set", v2: "set", v3: "set", tr: "Kurmak, Ayarlamak" },
+            { rank: 42, v1: "Learn", v2: "learnt / learned", v3: "learnt / learned", tr: "Öğrenmek" },
+            { rank: 43, v1: "Change", v2: "changed", v3: "changed", tr: "Değiştirmek" },
+            { rank: 44, v1: "Lead", v2: "led", v3: "led", tr: "Liderlik etmek, Yol göstermek" },
+            { rank: 45, v1: "Understand", v2: "understood", v3: "understood", tr: "Anlamak" },
+            { rank: 46, v1: "Watch", v2: "watched", v3: "watched", tr: "İzlemek" },
+            { rank: 47, v1: "Follow", v2: "followed", v3: "followed", tr: "Takip etmek" },
+            { rank: 48, v1: "Stop", v2: "stopped", v3: "stopped", tr: "Durmak, Durdurmak" },
+            { rank: 49, v1: "Create", v2: "created", v3: "created", tr: "Oluşturmak, Yaratmak" },
+            { rank: 50, v1: "Speak", v2: "spoke", v3: "spoken", tr: "Konuşmak" }
         ];
 
         let currentIndex = 0;
@@ -107,8 +128,8 @@
             const verb = verbs[currentIndex];
             document.getElementById('verb-rank').innerText = '#' + verb.rank;
             document.getElementById('verb-v1').innerText = verb.v1;
-            document.getElementById('verb-meaning').innerText = verb.tr;
             
+            document.getElementById('back-meaning').innerText = verb.tr;
             document.getElementById('back-v1').innerText = verb.v1;
             document.getElementById('back-v2').innerText = verb.v2;
             document.getElementById('back-v3').innerText = verb.v3;
@@ -141,3 +162,4 @@
         }
     </script>
 </body>
+</html>
